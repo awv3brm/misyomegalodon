@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prank Calculator</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+      font-family: Arial, sans-serif;
+    }
+
+    .calculator {
+      width: 320px;
+      padding: 20px;
+      background: #222;
+      border-radius: 20px;
+    }
+
+    #display {
+      height: 90px;
+      background: #000;
+      color: orange;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      text-align: right;
+      font-size: 36px;
+      overflow: hidden;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    button {
+      height: 60px;
+      border: none;
+      border-radius: 12px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="calculator">
+
+  <div id="display">0</div>
+
+  <div class="buttons">
+    <button onclick="AC()">AC</button>
+    <button onclick="operator('÷')">÷</button>
+    <button onclick="operator('×')">×</button>
+    <button onclick="operator('−')">−</button>
+
+    <button onclick="number()">7</button>
+    <button onclick="number()">8</button>
+    <button onclick="number()">9</button>
+    <button onclick="operator('+')">+</button>
+
+    <button onclick="number()">4</button>
+    <button onclick="number()">5</button>
+    <button onclick="number()">6</button>
+    <button onclick="equals()">=</button>
+
+    <button onclick="number()">1</button>
+    <button onclick="number()">2</button>
+    <button onclick="number()">3</button>
+    <button onclick="number()">.</button>
+
+    <button onclick="number()">0</button>
+  </div>
+
+</div>
+
+<script>
+
+let step = 0;
+let equalIndex = 0;
+let acIndex = 0;
+
+const equalMessages = [
+  "MAHAL NA ANG BIGAS (click the equal again)",
+  "PATI LATA NG SARDINAS",
+  "KUNG MAMAHALIN KITA NGAYON",
+  "SABAY TAYONG MAGUGUTOM (click AC to start again)"
+];
+
+const acMessages = [
+  "minahal ko naman eh (click the AC again)",
+  "Di parin ba sapat?",
+  "Miss na kita pre",
+  "Paisa nga",
+  "Isa lang",
+  "Isa lang eh",
+  "Geh tae lang ako"
+];
+
+function show(text) {
+  const display = document.getElementById("display");
+  display.textContent = text;
+
+  if (text.length > 25) {
+    display.style.fontSize = "14px";
+  } else if (text.length > 17) {
+    display.style.fontSize = "20px";
+  } else {
+    display.style.fontSize = "36px";
+  }
+}
+
+function number() {
+  if (step === 0) {
+    show("6");
+    step = 1;
+  } else if (step === 2) {
+    show("6+7");
+    step = 3;
+  }
+}
+
+function operator(op) {
+  if (step === 1) {
+    show("6" + op);
+    step = 2;
+  }
+}
+
+function equals() {
+  if (step === 3 && equalIndex < equalMessages.length) {
+    show(equalMessages[equalIndex]);
+    equalIndex++;
+  }
+}
+
+function AC() {
+  if (equalIndex >= 4) {
+    if (acIndex < acMessages.length) {
+      show(acMessages[acIndex]);
+      acIndex++;
+    }
+  } else {
+    show("minahal ko naman eh (click the AC again)");
+    acIndex = 1;
+  }
+
+  step = 0;
+}
+
+</script>
+
+</body>
+</html>
